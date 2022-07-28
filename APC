@@ -1,0 +1,95 @@
+algoritmo Governanca_Empresarial;
+// Síntese
+//  Objetivo: Calcular os rendimentos  da empresa e os seus gastos com salários
+//  Entrada : Nome do usuário, quantidade, nomes e funções dos funcionários
+//  Saída   : A rentabilidade da empresa e o salário de cada funcionário
+
+principal
+	// Declarações
+texto nome, nome_func[100];
+inteiro funcao_func[100], i, funcionarios;
+real valor_vendas[100], comissao[100], salario[100];
+	// Instruções
+	// Introduçao para deixar o programa mais interativo e menos robótico
+	i = 1;
+	escreval("Bem-vindo(a)! Irei lhe ajudar a calcular os salários da empresa. Para começar, como devo lhe chamar? ");
+	leia(nome);
+	escreval("Muito prazer, ", nome, " , para calcular, precisarei que me informe o nome, a função e, se for vendedor, o total de vendas, ok? ");
+	escreval("Quantos funcionários tem a empresa? gestão, gerente e vendedores ");
+	leia(funcionarios);
+	enquanto (funcionarios < 0) faca
+		escreval("Valor negativo é inválido! Quantos funcionários tem a empresa, gestão, gerente e vendedores? ");
+	 	leia(funcionarios);
+	fimEnquanto
+	se (funcionarios >= 1 e funcionarios <= 100) entao
+		para (i de 0 ate (funcionarios-1) passo 1) faca
+			escreva("Informe o nome do funcionário ", i+1, ": ");
+			leia(nome_func[i]);
+			escreval("Função do ", nome_func[i], " : (digite o número correspondente)");
+			escreval(" 1- Gestor    2- Gerente    3- Vendedor");
+			leia(funcao_func[i]);
+			enquanto (funcao_func[i] <= 0 ou funcao_func[i] > 3) faca
+				escreval("Valor errado! 1- Gestor    2- Gerente    3- Vendedor");
+				leia(funcao_func[i]);
+			fimEnquanto
+		
+			se (funcao_func[i] == 3) entao
+			escreva("Valor de vendas: R$ ");
+			leia(valor_vendas[i]);
+			enquanto (valor_vendas[i] < 0)
+			faca
+				escreva("Desculpe, não há valor de venda negativo, informe um valor válido: R$ ");
+				leia(valor_vendas[i]);
+			fimEnquanto 
+				se (funcao_func[i] == 3 e valor_vendas[i] < 5000) entao
+					comissao[i] = 0.01;
+					salario[i] = 2000 + comissao[i] * valor_vendas[i];
+				senao
+					se (funcao_func[i] == 3 e valor_vendas[i] >= 5000 e valor_vendas[i] <= 10000) entao
+						comissao[i] = 0.015;
+						salario[i] = 2000 + comissao[i] * valor_vendas[i];
+					senao
+						se (funcao_func[i] == 3 e valor_vendas[i] >= 10000) entao
+							comissao[i] = 0.02;
+							salario[i] = 2000 + comissao[i] * valor_vendas[i];
+						senao
+						fimSe
+					fimSe
+				fimSe
+			senao
+			fimSe
+			se (funcao_func[i] == 2) entao
+				comissao[i] = 300;
+				salario[i] = 4000 + comissao[i];
+			senao
+			fimSe
+			se (funcao_func[i] == 1) entao
+				comissao[i] = 0;
+				salario[i] = 10000;
+			senao
+			fimSe
+		fimPara
+	fimSe
+	para (i de 0 ate funcionarios-1 passo 1) faca
+		escreval("---------------------------------");
+		escreval(nome_func[i], "(", funcao_func[i], ") = R$ ", salario[i]);
+		escreval("---------------------------------");
+	fimPara
+fimPrincipal
+
+procedimento soma(real valor_vendas[], inteiro funcionarios[]) 
+	//Declaraçoes
+	inteiro i, x;
+
+	//Operaçoes
+	soma = 0;
+	x = 0;
+	i = 1;
+	leia(funcionarios[i]);
+	para(i de 0 ate (funcionarios-1) passo 1)faca
+		leia(valor_vendas[i]);
+		soma = soma + valor_vendas[i];
+	fimPara
+	
+   escreval(soma);
+fimProcedimento
