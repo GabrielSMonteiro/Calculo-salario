@@ -59,7 +59,7 @@ real valor_vendas[100], comissao[100], salario[100];
 			senao
 			fimSe
 			se (funcao_func[i] == 2) entao
-				comissao[i] = 300;
+				comissao[i] = soma(valor_vendas[i], funcionarios);
 				salario[i] = 4000 + comissao[i];
 			senao
 			fimSe
